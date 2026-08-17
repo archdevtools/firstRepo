@@ -1,0 +1,279 @@
+{{ define "main" }}
+<div class="tools-container">
+  <h1>{{ .Title }}</h1>
+  <p>{{ .Content }}</p>
+  
+  <!-- Filters -->
+  <div class="filters">
+    <div class="filter-group">
+      <label>Type:</label>
+      <select id="typeFilter">
+        <option value="">All</option>
+        <option value="SaaS">SaaS</option>
+        <option value="Open Source">Open Source</option>
+        <option value="Open Source + SaaS">Both</option>
+      </select>
+    </div>
+    
+    <div class="filter-group">
+      <label>Self-Hosted:</label>
+      <select id="selfHostedFilter">
+        <option value="">All</option>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+      </select>
+    </div>
+    
+    <div class="filter-group">
+      <label>Search:</label>
+      <input type="text" id="searchFilter" placeholder="Search tools...">
+    </div>
+  </div>
+  
+  <!-- Tools Grid -->
+  <div class="tools-grid">
+    {{ range $.Site.Data.tools.tools }}
+    <div class="tool-card" data-type="{{ .type }}" data-self-hosted="{{ .selfHosted }}" data-category="{{ .category }}">
+      <div class="tool-header">
+        <h3>{{ .name }}</h3>
+        <span class="tool-type">{{ .type }}</span>
+      </div>
+      
+      <p class="tool-description">{{ .description }}</p>
+      
+      <div class="tool-meta">
+        <span class="pricing">{{ .pricing }}</span>
+        {{ if .selfHosted }}<span class="badge">Self-Hosted</span>{{ end }}
+        {{ if .openSource }}<span class="badge open-source">Open Source</span>{{ end }}
+      </div>
+      
+      <div class="tool-best-for">
+        <strong>Best for:</strong> {{ .bestFor }}
+      </div>
+      
+      <div class="tool-pros">
+        <strong>Pros:</strong>
+        <ul>
+          {{ range .pros }}<li>{{ . }}</li>{{ end }}
+        </ul>
+      </div>
+      
+      <div class="tool-cons">
+        <strong>Cons:</strong>
+        <ul>
+          {{ range .cons }}<li>{{ . }}</li>{{ end }}
+        </ul>
+      </div>
+      
+      <div class="tool-footer">
+        <a href="{{ .website }}" class="btn btn-primary">Visit Site</a>
+        {{ if .affiliateLink }}
+        <a href="{{ .affiliateLink }}" class="btn btn-secondary">Affiliate</a>
+        {{ end }}
+        {{ if .reviewed }}
+        <a href="/posts/{{ .id }}-review/" class="btn btn-tertiary">Full Review</a>
+        {{ end }}
+      </div>
+      
+      <div class="tool-rating">
+        Rating: <strong>{{ .rating }}/10</strong>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</div>
+
+<!-- JavaScript for filtering -->
+<script>
+function filterTools() {
+  const typeFilter = document.getElementById('typeFilter').value;
+  const selfHostedFilter = document.getElementById('selfHostedFilter').value;
+  const searchFilter = document.getElementById('searchFilter').value.toLowerCase();
+  
+  const cards = document.querySelectorAll('.tool-card');
+  
+  cards.forEach(card => {
+    let show = true;
+    
+    if (typeFilter && !card.dataset.type.includes(typeFilter)) show = false;
+    if (selfHostedFilter && card.dataset.selfHosted !== selfHostedFilter) show = false;
+    if (searchFilter && !card.textContent.toLowerCase().includes(searchFilter)) show = false;
+    
+    card.style.display = show ? 'block' : 'none';
+  });
+}
+
+document.getElementById('typeFilter').addEventListener('change', filterTools);
+document.getElementById('selfHostedFilter').addEventListener('change', filterTools);
+document.getElementById('searchFilter').addEventListener('keyup', filterTools);
+</script>
+
+<style>
+.tools-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.filters {
+  display: flex;
+  gap: 20px;
+  margin: 30px 0;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.filter-group label {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.filter-group select,
+.filter-group input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+  margin: 30px 0;
+}
+
+.tool-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  background: #fff;
+  transition: all 0.3s ease;
+}
+
+.tool-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+
+.tool-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 10px;
+}
+
+.tool-header h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.tool-type {
+  background: #f0f0f0;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.tool-description {
+  color: #666;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.tool-meta {
+  margin: 10px 0;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pricing {
+  background: #e3f2fd;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.badge {
+  background: #f3e5f5;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.badge.open-source {
+  background: #e8f5e9;
+}
+
+.tool-best-for {
+  font-size: 13px;
+  margin: 10px 0;
+  padding: 10px;
+  background: #f9f9f9;
+  border-left: 3px solid #2196F3;
+}
+
+.tool-pros, .tool-cons {
+  font-size: 13px;
+  margin: 10px 0;
+}
+
+.tool-pros ul, .tool-cons ul {
+  margin: 5px 0;
+  padding-left: 20px;
+}
+
+.tool-pros li, .tool-cons li {
+  margin: 3px 0;
+}
+
+.tool-footer {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 8px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #2196F3;
+  color: white;
+}
+
+.btn-secondary {
+  background: #4CAF50;
+  color: white;
+}
+
+.btn-tertiary {
+  background: #ff9800;
+  color: white;
+}
+
+.tool-rating {
+  font-size: 13px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #e0e0e0;
+}
+</style>
+
+{{ end }}

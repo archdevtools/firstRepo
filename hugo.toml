@@ -1,0 +1,7 @@
+baseURL = 'https://example.org/'
+locale = 'en-us'
+title = 'My New Hugo Project'
+[[menu.main]]
+  name = "Tools"
+  url = "/tools/"
+  weight = 3

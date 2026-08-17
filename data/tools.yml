@@ -1,0 +1,120 @@
+tools:
+  - id: linear
+    name: "Linear"
+    category: "Project Management"
+    type: "SaaS"
+    openSource: false
+    selfHosted: false
+    pricing: "Paid ($10/user/month)"
+    description: "Modern issue tracking for software teams"
+    bestFor: "Fast-moving tech teams, SaaS companies"
+    pros:
+      - "Blazing fast UI"
+      - "Great API"
+      - "Keyboard shortcuts"
+      - "Deep GitHub integration"
+    cons:
+      - "No self-hosted option"
+      - "Expensive at scale"
+      - "Limited automation"
+    website: "https://linear.app"
+    affiliateLink: "https://linear.app?referral=archdevtools"
+    alternatives: ["plane", "github-issues", "openproject"]
+    rating: 9
+    reviewed: true
+    
+  - id: plane
+    name: "Plane"
+    category: "Project Management"
+    type: "Open Source + SaaS"
+    openSource: true
+    selfHosted: true
+    pricing: "Open Source (free), SaaS ($5/user/month)"
+    description: "Open-source Linear alternative"
+    bestFor: "Teams wanting self-hosted or privacy-focused option"
+    pros:
+      - "Self-hosted option"
+      - "Open source (inspect code)"
+      - "Much cheaper"
+      - "Active development"
+    cons:
+      - "Less polished than Linear"
+      - "Smaller community"
+      - "Fewer integrations"
+    website: "https://plane.so"
+    affiliateLink: "https://plane.so?ref=archdevtools"
+    alternatives: ["linear", "github-issues"]
+    rating: 8
+    reviewed: true
+    
+  - id: gitea
+    name: "Gitea"
+    category: "Git Hosting"
+    type: "Open Source"
+    openSource: true
+    selfHosted: true
+    pricing: "Free (open source)"
+    description: "Lightweight self-hosted Git service"
+    bestFor: "Self-hosting, private repos, GitHub alternative"
+    pros:
+      - "Lightweight (runs on Pi)"
+      - "No external dependencies"
+      - "Easy to setup"
+      - "Full control"
+    cons:
+      - "Limited CI/CD (no built-in)"
+      - "Smaller feature set"
+      - "Community support only"
+    website: "https://gitea.io"
+    affiliateLink: null
+    alternatives: ["github", "gitlab"]
+    rating: 8
+    reviewed: false
+
+  - id: mattermost
+    name: "Mattermost"
+    category: "Communication"
+    type: "Open Source + SaaS"
+    openSource: true
+    selfHosted: true
+    pricing: "Free (self-hosted), SaaS ($10-100/user/month)"
+    description: "Open-source Slack alternative"
+    bestFor: "Privacy-conscious teams, self-hosting"
+    pros:
+      - "Self-hosted option"
+      - "Open source"
+      - "Slack-compatible"
+      - "No vendor lock-in"
+    cons:
+      - "Setup complexity"
+      - "Smaller integrations"
+      - "Less polished UI"
+    website: "https://mattermost.com"
+    affiliateLink: null
+    alternatives: ["slack", "zulip", "rocket-chat"]
+    rating: 7
+    reviewed: false
+
+  - id: grafana
+    name: "Grafana"
+    category: "Monitoring & Observability"
+    type: "Open Source + Enterprise"
+    openSource: true
+    selfHosted: true
+    pricing: "Free (self-hosted), Enterprise pricing"
+    description: "Visualization platform for monitoring/metrics"
+    bestFor: "DevOps, infrastructure monitoring, dashboards"
+    pros:
+      - "Open source"
+      - "Works with any data source"
+      - "Beautiful dashboards"
+      - "Active community"
+    cons:
+      - "Learning curve"
+      - "Setup required"
+      - "Cloud version pricey"
+    website: "https://grafana.com"
+    affiliateLink: null
+    alternatives: ["datadog", "new-relic"]
+    rating: 9
+    reviewed: false
